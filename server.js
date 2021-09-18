@@ -1,6 +1,16 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const consoleTable = require('console.table');
+const sql = require('./db/seeds.sql');
+const sql2 = require('./db/schema.sql');
+
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    database: 'test',
+    password: 'Yellow1!'
+});
 
 
 const promptUser = () => {
@@ -22,28 +32,42 @@ const promptUser = () => {
         }
     ]).then((answers) => {
         const {choices} = answers;
-            if (allChoices === 'View all departments') {
+            if (choices === 'View all departments') {
                 viewAllDepartments();
             }
-            if (allChoices === 'View all roles') {
+            if (choices === 'View all roles') {
                 viewAllRoles();
             }
-            if (allChoices === 'View all employees') {
+            if (choices === 'View all employees') {
                 viewAllEmployees();
             }
-            if (allChoices === 'Add department') {
+            if (choices === 'Add department') {
                 addDepartment();
             }
-            if (allChoices === 'Add a role') {
+            if (choices === 'Add a role') {
                 addRole();
             }
-            if (allChoices === 'Add an employee') {
+            if (choices === 'Add an employee') {
                 addEmployee();
             }
-            if (allChoices === 'Update an employee') {
+            if (choices === 'Update an employee') {
                 updateEmployee();
             }
     });
 }
+
+const viewAllDepartments = () => {
+    connection.query( 
+        'SELECT id AS Dept_ID, name AS departments FROM departments',
+    function(err, results, fields) {
+        console.log(results);
+        console.log(fields);
+    });
+//    connection.query(query, function(err, query) {
+//        console.table(query);
+//        promptUser();
+//    })
+}
+
 
 promptUser();
