@@ -1,10 +1,12 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const consoleTable = require('console.table');
+
+// just testing connection
 const sql = require('./db/seeds.sql');
 const sql2 = require('./db/schema.sql');
 
-
+// will update and move later 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
